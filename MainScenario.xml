@@ -1,0 +1,224 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Frame name="MS_Header" hidden="true" virtual="true" inherits="BackdropTemplate">
+        <Size x="400" y="30"/>
+         <Backdrop edgeFile="Interface/Tooltips/UI-Tooltip-Border" tile="true">
+                     <EdgeSize val="16"/>
+        </Backdrop>
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString parentKey="AddonTitle" font="Fonts\FRIZQT__.TTF" justifyH="LEFT" justifyV="MIDDLE" text="MainScenario">
+                    <Color r="0.7" g="0.7" b="1" a="1"/>
+                    <FontHeight val="14"/>
+                    <Size x="400" y="30"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo="$parent" x="10" y="0" />
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+    
+    <Frame name="MS_ActiveStoryPart" hidden="true" virtual="true" inherits="BackdropTemplate">
+        <Size x="400" y="100"/>
+        <Backdrop edgeFile="Interface/Tooltips/UI-Tooltip-Border" tile="true">
+                     <EdgeSize val="16"/>
+        </Backdrop>
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString parentKey="PartTitle" font="Fonts\FRIZQT__.TTF" justifyH="LEFT" justifyV="MIDDLE">
+                    <Color r="1" g="0.8" b="1" a="1"/>
+                    <FontHeight val="13"/>
+                    <Size x="300" y="20"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo="$parent" x="10" y="-5" />
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="ChapterTitle" wordwrap="true" font="Fonts\FRIZQT__.TTF" justifyH="LEFT" justifyV="TOP">
+                    <Color r="1" g="0.8" b="1" a="1"/>
+                    <FontHeight val="10"/>
+                    <Size x="350" y="40"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo="$parent" x="10" y="-25" />
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="Instruction" wordwrap="true" font="Fonts\FRIZQT__.TTF" justifyH="LEFT" justifyV="TOP">
+                    <Color r="1" g="1" b="1" a="1"/>
+                    <FontHeight val="12"/>
+                    <Size x="300" y="40"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo="$parent" x="10" y="-50" />
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="Hint" wordwrap="true" font="Fonts\FRIZQT__.TTF" justifyH="LEFT" justifyV="TOP">
+                    <Color r="1" g="1" b="1" a="1"/>
+                    <FontHeight val="8"/>
+                    <Size x="320" y="40"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo="$parent" x="10" y="-80" />
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="Complete" wordwrap="true" font="Fonts\FRIZQT__.TTF" justifyH="CENTER" justifyV="MIDDLE" text="Part Completed!" hidden="true">
+                    <Color r="0.5" g="1" b="0.5" a="1"/>
+                    <FontHeight val="40"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo="$parent" x="0" y="0" />
+                        <Anchor point="BOTTOMRIGHT" relativeTo="$parent" x="0" y="0" />
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="New" wordwrap="true" font="Fonts\FRIZQT__.TTF" justifyH="CENTER" justifyV="MIDDLE" text="New Part!" hidden="true">
+                    <Color r="0.5" g="0.5" b="1" a="1"/>
+                    <FontHeight val="40"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo="$parent" x="0" y="0" />
+                        <Anchor point="BOTTOMRIGHT" relativeTo="$parent" x="0" y="0" />
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Frame name="$parent_AnimationOverlay" parentKey="AnimationOverlay" alpha="0" inherits="BackdropTemplate">
+                <Backdrop bgFile="Interface/Buttons/WHITE8X8" tile="true">
+                     <Color r="0.5" g="0.8" b="0.5"/>
+                </Backdrop>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="$parent" x="0" y="0" />
+                    <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" relativeTo="$parent" x="0" y="0" />
+                </Anchors>
+                <Animations>
+                    <AnimationGroup parentKey="FlashAnimation">
+                        <Alpha fromAlpha="0" toAlpha="0.5" duration="0.5" startDelay="0" order="1" />
+                        <Alpha fromAlpha="0.5" toAlpha="0" duration="0.5" startDelay="0" order="2" />
+                    </AnimationGroup>
+                </Animations>    
+            </Frame>
+            <Button parentKey="ShowURL" text="Copy URL" inherits="GameMenuButtonTemplate" hidden="true">
+                <Size x="60" y="20"/>
+                <Anchors>
+                    <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" relativeTo="$parent" x="-10" y="-45" />
+                </Anchors>    
+                <Scripts>
+                    <OnClick>
+                    local part = self:GetParent().Part
+                    StaticPopupDialogs["MAINSCENARIO_EXTERNALCONTENT"].OnShow = function(self) self.editBox:SetText(part.Chapters[part.ActiveChapter].url) end
+                    StaticPopup_Show("MAINSCENARIO_EXTERNALCONTENT")
+                    </OnClick>
+                </Scripts>
+            </Button>
+            <Button parentKey="Continue" text="Continue" inherits="GameMenuButtonTemplate" hidden="true">
+                <Size x="60" y="20"/>
+                <Anchors>
+                      <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" relativeTo="$parent" x="-10" y="-67" />
+                </Anchors>    
+                <Scripts>
+                    <OnClick>
+                         self:GetParent().AnimationOverlay.FlashAnimation:Play()
+                         MS_AdvanceChapter(self:GetParent())
+                    </OnClick>
+                </Scripts>
+            </Button>
+            <Button parentKey="Content" inherits="GameMenuButtonTemplate" hidden="true" wordWrap="true">
+                <Anchors>
+                      <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="$parent" x="30" y="-40" />
+                       <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" relativeTo="$parent" x="-80" y="10" />
+                </Anchors>    
+                <Scripts>
+                    <OnClick>
+                         MS_ShowContent(self:GetParent())
+                    </OnClick>
+                </Scripts>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString parentKey="ButtonText" font="Fonts\FRIZQT__.TTF" justifyH="CENTER" justifyV="MIDDLE">
+                            <Color r="1" g="1" b="1" a="1"/>
+                            <FontHeight val="11"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="$parent" x="30" y="-40" />
+                                <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" relativeTo="$parent" x="-80" y="10" />
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+            </Button>
+            <Frame name="$parent_ProgressHolder" parentKey="ProgressHolder" inherits="BackdropTemplate">
+                <Size x="100" y="20"/>
+                <Anchors>
+                    <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" relativeTo="$parent" x="-5" y="-5" />
+                </Anchors>    
+                <Frames>
+                     <StatusBar parentKey="Progress" minValue="0" maxValue="12" orientation="HORIZONTAL">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="$parent" x="3" y="-3" />
+                            <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" relativeTo="$parent" x="-3" y="3" />
+                        </Anchors>
+                        <Layers>
+                        <Layer level="ARTWORK">
+                            <FontString parentKey="Text" font="Fonts\FRIZQT__.TTF" justifyH="CENTER" justifyV="MIDDLE">
+                                <Color r="1" g="0.8" b="1" a="1"/>
+                                <FontHeight val="8"/>
+                                <Size x="80" y="10"/>
+                            </FontString>
+                        </Layer>
+                        </Layers>
+                    </StatusBar>
+                </Frames>
+            </Frame>         
+        </Frames>
+    </Frame>
+
+
+
+    <Frame name="MS_StoryRecapPart" hidden="true" virtual="true" inherits="BackdropTemplate">
+        <Size x="700" y="100"/>
+        <Backdrop edgeFile="Interface/Tooltips/UI-Tooltip-Border" tile="true">
+                     <EdgeSize val="16"/>
+        </Backdrop>
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString parentKey="RecapTitle" font="Fonts\FRIZQT__.TTF" justifyH="LEFT" justifyV="MIDDLE">
+                    <Color r="1" g="0.8" b="1" a="1"/>
+                    <FontHeight val="13"/>
+                    <Size x="600" y="20"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo="$parent" x="10" y="-5" />
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="RecapContent" font="Fonts\FRIZQT__.TTF" justifyH="LEFT" justifyV="TOP">
+                    <Color r="1" g="1" b="1" a="1"/>
+                    <FontHeight val="11"/>
+                    <Size x="600" y="100"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo="$parent" x="10" y="-25" />
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Button parentKey="GetURL" text="Get Video URL" inherits="GameMenuButtonTemplate" hidden="true">
+                <Size x="100" y="30"/>
+                <Anchors>
+                    <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" relativeTo="$parent" x="-10" y="-10" />
+                </Anchors>    
+                <Scripts>
+                    <OnClick>
+                    local part = self:GetParent().Part
+                    StaticPopupDialogs["MAINSCENARIO_EXTERNALCONTENT"].OnShow = function(self) self.editBox:SetText(part.Chapters[part.ActiveChapter].url) end
+                    StaticPopup_Show("MAINSCENARIO_EXTERNALCONTENT")
+                    </OnClick>
+                </Scripts>
+            </Button>
+            <Button parentKey="Cinematic" text="Play Cinematic" inherits="GameMenuButtonTemplate" hidden="true">
+                <Size x="100" y="30"/>
+                <Anchors>
+                      <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" relativeTo="$parent" x="-10" y="-10" />
+                </Anchors>    
+                <Scripts>
+                    <OnClick>
+                         local section = self:GetParent().Section
+                         MovieFrame_PlayMovie(MovieFrame, section.cinematic)
+                    </OnClick>
+                </Scripts>
+            </Button>
+        </Frames>
+    </Frame>
+</Ui>

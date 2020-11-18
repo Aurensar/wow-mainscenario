@@ -1,0 +1,19 @@
+## Interface: 90001
+## Title: Main Scenario
+## Notes: World of Warcraft Story Guide
+## Version: 1.0.0
+## Author: Aurensar
+
+## SavedVariables: MainScenarioDB
+## Dependencies: Blizzard_ObjectiveTracker
+## OptionalDeps: Ace3, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets, LibSink-2.0, MSA-DropDownMenu-1.0, ViragDevTool
+
+Libs.xml
+Utils.lua
+
+MainScenario.lua
+MSStringsEN.lua
+MSOptions.lua
+MSContentFrame.lua
+BFAStoryDefinition.lua
+MainScenario.xml
